@@ -1,0 +1,50 @@
+body {
+    background-color:  #ffff99;
+    font-family: 'Baloo Bhai', cursive;
+    text-align: center;
+
+}
+
+h1 {
+    font-size: 5em;
+    line-height: 1em;
+    margin: 40px 0 20px 0;
+}
+
+
+.row {
+    text-align: center;
+}
+
+#selection-box {
+    font-size: 1.5em;
+}
+
+button {
+    width: 150px;
+    height: 75px;
+    margin: 15px 10px;
+    border-radius: 10px;
+}
+
+
+.btn {
+    font-size: 2rem;
+}
+
+#number {
+    width: 175px;
+    height: 175px;
+    margin: 15px 20px;
+    border-radius: 10px;
+    font-size: 4rem;
+}
+
+#start, #answer {margin-top: 40px;}
+/*#question-box .btn {*/
+/*    font-size: 4rem;*/
+/*}*/
+
+
+
+
