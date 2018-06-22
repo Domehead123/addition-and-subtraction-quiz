@@ -20,9 +20,11 @@ h1 {
     font-size: 1.5em;
 }
 
+
+
 button {
     width: 150px;
-    height: 75px;
+    height: 70px;
     margin: 15px 10px;
     border-radius: 10px;
 }
@@ -32,19 +34,47 @@ button {
     font-size: 2rem;
 }
 
+.btn-secondary {
+    width: 400px;
+    height: 50px;
+    font-size: 1.5rem;
+    
+}
+
 #number {
     width: 175px;
     height: 175px;
-    margin: 15px 20px;
+    margin: 15px 25px;
     border-radius: 10px;
     font-size: 4rem;
 }
 
-#start, #answer {margin-top: 40px;}
-/*#question-box .btn {*/
-/*    font-size: 4rem;*/
-/*}*/
 
 
 
+.btn-info:not(:disabled):not(.disabled).active {
+    background-color: #751396;
+    border-color: #541396;
+}
 
+.btn-info:not(:disabled):not(.disabled).active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255,255,255,.5);
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active {
+    background-color: black;
+    border-color: #541396;
+}
+
+.btn-info:not(:disabled):not(.disabled).active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255,255,255,.5);
+}
+
+#error-alert p {
+    color: #751396;
+    margin-bottom: 0;
+}
+
+.smiley {
+    font-size: 1.2em;
+}
