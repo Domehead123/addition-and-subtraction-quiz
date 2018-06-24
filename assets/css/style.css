@@ -11,12 +11,15 @@ h1 {
     margin: 40px 0 20px 0;
 }
 
+h2{
+    font-size: 4rem;
+}
 
 .row {
     text-align: center;
 }
 
-#selection-box {
+#selection-box, #question-box {
     font-size: 1.5em;
 }
 
@@ -41,7 +44,7 @@ button {
     
 }
 
-#number {
+.number {
     width: 175px;
     height: 175px;
     margin: 15px 25px;
@@ -70,11 +73,21 @@ button {
     box-shadow: 0 0 0 0.2rem rgba(255,255,255,.5);
 }
 
-#error-alert p {
+.error-alert p {
     color: #751396;
     margin-bottom: 0;
 }
 
 .smiley {
     font-size: 1.2em;
+}
+
+.incorrect {
+    background-color: red;
+    border-color:red;
+}
+
+.correct {
+    background-color: #1e7e34;
+    border-color:#1e7e34;
 }
