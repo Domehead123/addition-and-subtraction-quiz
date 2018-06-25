@@ -44,6 +44,10 @@ button {
     
 }
 
+.btn-success {
+    width: 200px;
+}
+
 .number {
     width: 175px;
     height: 175px;
@@ -91,3 +95,12 @@ button {
     background-color: #1e7e34;
     border-color:#1e7e34;
 }
+
+.hidden {
+    display: none;
+}
+
+.unhidden {
+    display: block;
+}
+

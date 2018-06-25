@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    var counter = 0;
+    var score = 0;
     var upperLimit = "";
     var difficulty = "";
 
@@ -19,7 +21,7 @@ $(document).ready(function() {
     });
 
     //error messages if nothing selected - otherwise run quiz   
-    $(".btn-success").click(function() {
+    $(".start").click(function() {
         if (upperLimit === "" && difficulty === "") {
             $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a range of numbers and a level of difficulty.</p>');
         }
@@ -30,122 +32,152 @@ $(document).ready(function() {
             $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a level of difficulty.</p>');
         }
         else {
-            $("#selection-box").fadeOut(1000, runQuiz())
+            $("#start-box").addClass("hidden");
+            $("#selection-box").addClass("hidden");
+            runQuiz()
         }
+
+
+        $(".next").click(function() 
+        {
+          runQuiz();
+        });
+        
+         $(".restart").click(function() 
+        {
+          location.reload();
+        });
     });
 
     // runs the quiz    
     function runQuiz() {
-        var counter=1;
-        if (counter < 11) {
-            var firstNumber = createRandom(1, upperLimit);
-            var secondNumber = createRandom(1, upperLimit);
-            var sign;
-            var guess = 300;
-            var plusOrMinus = createRandom(0, 1);
-            if (plusOrMinus == 0) {
-                sign = " + ";
+         counter++;
+          console.log(counter);
+        var firstNumber = createRandom(1, upperLimit);
+        var secondNumber = createRandom(1, upperLimit);
+        var sign;
+        var guess;
+        var plusOrMinus = createRandom(0, 1);
+        if (plusOrMinus == 0) {
+            sign = " + ";
             var result = firstNumber + secondNumber;
+        }
+        else {
+            sign = " - ";
+            if (secondNumber > firstNumber) {
+                //swaps numbers if second one bigger, to avoid minus numbers    
+                var thirdNumber = firstNumber;
+                firstNumber = secondNumber;
+                secondNumber = thirdNumber;
             }
-            else {
-                sign = " - ";
-                if (secondNumber > firstNumber) {
-                    //swaps numbers if second one bigger, to avoid minus numbers    
-                    var thirdNumber = firstNumber;
-                    firstNumber = secondNumber;
-                    secondNumber = thirdNumber;
+            result = firstNumber - secondNumber;
+        }
+
+
+        var multipleChoice = [result];
+
+        createMultipleChoice(result, multipleChoice);
+
+        $("#question-box").removeClass("hidden").addClass("unhidden");
+        $("#question-box").html('<h2>' + firstNumber + sign + secondNumber + ' = ?</h2><div class="button-row"><button type="button" class="btn btn-info number" id="0">' + multipleChoice[0] + '</button><button type="button" class="btn btn-info number" id="1">' + multipleChoice[1] + '</button> <button type="button" class="btn btn-info number" id="2">' + multipleChoice[2] + '</button><button type="button" class="btn btn-info number" id="3">' + multipleChoice[3] + '</button></div><div class="button-row"><div class=error-alert></div></div>')
+        $("#answer-box").removeClass("hidden").addClass("unhidden");
+        $("#next-box").removeClass("unhidden").addClass("hidden");
+
+
+        $(".btn-info").click(function() {
+            $(".btn-info").removeClass("active");
+            $(".btn-info").removeClass("guess");
+            $(this).addClass("active");
+            $(this).addClass("guess");
+            guess = parseInt($('#' + i).text());
+
+        });
+
+        //actions when answer button is clicked    
+        $(".answer").click(function() {
+
+            //checks if guess has been made 
+            if ($('#0').hasClass("guess") || $('#1').hasClass("guess") || $('#2').hasClass("guess") || $('#3').hasClass("guess"))
+            {
+                $(".btn-info").removeClass("active").removeClass("correct").removeClass("incorrect");
+                $(".error-alert").empty();
+                $("#answer-box").removeClass("unhidden").addClass("hidden");
+                if (counter==10)
+                {
+                    $("#restart-box").removeClass("hidden").addClass("unhidden"); 
                 }
-                result = firstNumber - secondNumber;
-            }
+                else
+                {
+                  $("#next-box").removeClass("hidden").addClass("unhidden"); 
+                }
+                    
+                
 
 
-            var multipleChoice = [result];
 
-            createMultipleChoice(result, multipleChoice);
+                for (i = 0; i < 4; i++) {
+                    if (parseInt($('#' + i).text()) == result) {
+                        $('#' + i).addClass("correct");
 
-            $("#question-box").hide().html('<h2>' + firstNumber + sign + secondNumber + ' = ?</h2><div class="button-row"><button type="button" class="btn btn-info number" id="0">' + multipleChoice[0] + '</button><button type="button" class="btn btn-info number" id="1">' + multipleChoice[1] + '</button> <button type="button" class="btn btn-info number" id="2">' + multipleChoice[2] + '</button><button type="button" class="btn btn-info number" id="3">' + multipleChoice[3] + '</button></div><div class="button-row"><div class=error-alert></div><button type="button" class="btn btn-success "id="answer">Answer</button></div>').delay(1000).fadeIn(1000);
-
-            $(".btn-info").click(function() {
-                $(".btn-info").removeClass("active");
-                $(".btn-info").removeClass("guess");
-                $(this).addClass("active");
-                $(this).addClass("guess");
-                guess = parseInt($('#' + i).text());
-
-            });
-
-            //actions when answer button is clicked    
-            $("#answer").click(function() {
-
-                //checks if guess has been made - if not then error message
-                if (guess == 300) {
-                    $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose an answer.</p>');
+                    }
+                    else {
+                        $('#' + i).addClass("incorrect");
+                    }
                 }
 
-                //changes multiple choice options to green (correct) or red (incorrect)
+                //tells user if answer is correct or not
+                if (parseInt($(".guess").text()) == result) {
+                    $("h2").text('That\'s right! ' + firstNumber + sign + secondNumber + ' = ' + result);
+                    score++;
+                }
 
                 else {
-                    $(".error-alert").empty();
-                    $(".btn-success").removeAttr("id");
-                    $(".btn-success").attr("id", "next");
-                    $(".btn-success").text("Next >");
-
-
-                    for (i = 0; i < 4; i++) {
-                        if (parseInt($('#' + i).text()) == result) {
-                            $('#' + i).addClass("correct");
-
-                        }
-                        else {
-                            $('#' + i).addClass("incorrect");
-                        }
-                    }
-
-                    //tells user if answer is correct or not
-                    if (parseInt($(".guess").text()) == result) {
-                        $("h2").text('That\'s right! ' + firstNumber + sign + secondNumber + ' = ' + result);
-                    }
-
-                    else {
-                        $("h2").text('That\'s wrong. ' + firstNumber + sign + secondNumber + ' = ' + result);
-                    }
-
-
-                    //fix to stop buttonc changing colour after answer has been given
-                    $(".btn-info").click(function() {
-                        if (parseInt($(this).text()) == result) {
-                            $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "#1e7e34", "border-color": "#1e7e34" });
-                        }
-                        else {
-                            $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "red", "border-color": "red" });
-                        }
-
-                    });
-
-                    $(".btn-info").mouseenter(function() {
-
-                        if (parseInt($(this).text()) == result) {
-                            $(".btn-info:hover").css({ "background-color": "#1e7e34", "border-color": "#1e7e34" });
-                        }
-                        else {
-                            $(".btn-info:hover").css({ "background-color": "red", "border-color": "red" })
-                        }
-                    });
-                    
-                     $("#next").click(function(){
-                         counter++
-                         
-                     });
-
-
-
-
+                    $("h2").text('That\'s wrong. ' + firstNumber + sign + secondNumber + ' = ' + result);
+                }
+                
+                if (counter==10)
+                {
+                  $("h2").append('<br /><span>You scored ' + score + ' out of 10');  
                 }
 
-            });
 
-        }
+                //fix to stop buttons changing colour after answer has been given
+                $(".btn-info").click(function() {
+                    if (parseInt($(this).text()) == result) {
+                        $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "#1e7e34", "border-color": "#1e7e34" });
+                    }
+                    else {
+                        $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "red", "border-color": "red" });
+                    }
+
+
+                });
+
+                $(".btn-info").mouseenter(function() {
+
+                    if (parseInt($(this).text()) == result) {
+                        $(".btn-info:hover").css({ "background-color": "#1e7e34", "border-color": "#1e7e34" });
+                    }
+                    else {
+                        $(".btn-info:hover").css({ "background-color": "red", "border-color": "red" })
+                    }
+
+                });
+
+
+
+
+
+
+             }
+             
+               else { $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose an answer.</p>');
+  }
+
+        });
+
     }
+
 
 
 
