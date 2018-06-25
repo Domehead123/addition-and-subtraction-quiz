@@ -2,53 +2,53 @@ body {
     background-color:  #ffff99;
     font-family: 'Baloo Bhai', cursive;
     text-align: center;
+    font-size: 0.8em;
 
 }
 
 h1 {
-    font-size: 5em;
+    font-size: 3em;
     line-height: 1em;
-    margin: 40px 0 20px 0;
+    margin: 30px 20px 20px 20px
 }
 
 h2{
-    font-size: 4rem;
+    font-size: 2.5rem;
 }
 
-.row {
-    text-align: center;
+section {
+    margin: 0px 40px;
 }
 
 #selection-box, #question-box {
     font-size: 1.5em;
 }
 
-
+/*buttons*/
 
 button {
-    width: 150px;
-    height: 70px;
-    margin: 15px 10px;
+    width: 65px;
+    height: 60px;
+    margin: 10px 10px;
     border-radius: 10px;
 }
 
-
 .btn {
-    font-size: 2rem;
+    font-size: 1.1rem;
 }
-
 
 .btn-success {
     width: 200px;
-    margin-top: 50px
+    margin-top: 20px;
+    font-size: 2em;
 }
 
 .number {
-    width: 175px;
-    height: 175px;
+    width: 100px;
+    height: 100px;
     margin: 15px 25px;
     border-radius: 10px;
-    font-size: 4rem;
+    font-size: 2.5rem;
 }
 
 
@@ -70,15 +70,6 @@ button {
     box-shadow: 0 0 0 0.2rem rgba(255,255,255,.5);
 }
 
-.error-alert p {
-    color: #751396;
-    margin-bottom: 0;
-}
-
-.smiley {
-    font-size: 1.2em;
-}
-
 .incorrect {
     background-color: red;
     border-color:red;
@@ -89,11 +80,63 @@ button {
     border-color:#1e7e34;
 }
 
+/*error alerts*/
+
+.error-alert p {
+    color: #751396;
+    line-height: 1.2em;
+    margin-bottom: 0;
+}
+
+.smiley {
+    font-size: 1.2em;
+}
+
+/*classes for hiding and unhiding*/
+
 .hidden {
     display: none;
 }
 
 .unhidden {
     display: block;
+}
+
+@media only screen and (min-width: 668px) {
+    
+    body {
+    font-size: 1em;
+
+}
+
+    button {
+        width: 150px;
+        margin: 15px 5px;
+}
+
+.btn {
+    font-size: 2rem;
+}
+
+h1 {
+    font-size: 5em;
+    margin: 40px 40px 20px 40px;
+}
+
+
+h2{
+    font-size: 4rem;
+}
+
+.number {
+    width: 175px;
+    height: 175px;
+    font-size: 4rem;
+}
+
+.btn-success {
+    margin-top: 50px;
+}
+
 }
 

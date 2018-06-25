@@ -3,8 +3,6 @@ $(document).ready(function() {
     var counter = 0;
     var score = 0;
     var upperLimit = "";
- 
-    
 
     //determines range of numbers
     $(".btn-info").click(function() {
@@ -16,36 +14,40 @@ $(document).ready(function() {
 
     //error message if nothing selected - otherwise run quiz   
     $(".start").click(function() {
-        if (upperLimit === "" ) {
+
+        if (upperLimit === "") {
             $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a range of numbers.</p>');
         }
-       
+
         else {
             $("#start-box").addClass("hidden");
             $("#selection-box").addClass("hidden");
-            runQuiz()
+            runQuiz();
         }
 
-
-        $(".next").click(function() 
-        {
-          runQuiz();
+        //runs quiz again if next button clicked
+        $(".next").click(function() {
+            runQuiz();
         });
-        
-         $(".restart").click(function() 
-        {
-          location.reload();
+
+        //reloads page if restart button clicked
+        $(".restart").click(function() {
+            location.reload();
         });
     });
 
     // runs the quiz    
     function runQuiz() {
-         counter++;
-          console.log(counter);
+
+        //sets or resets variables
+        counter++;
         var firstNumber = createRandom(1, upperLimit);
         var secondNumber = createRandom(1, upperLimit);
         var sign;
+        var guess;
         var plusOrMinus = createRandom(0, 1);
+
+        //performs addition or subtraction
         if (plusOrMinus == 0) {
             sign = " + ";
             var result = firstNumber + secondNumber;
@@ -61,17 +63,19 @@ $(document).ready(function() {
             result = firstNumber - secondNumber;
         }
 
-
+        //pushes the result to an array of answers;
         var multipleChoice = [result];
 
+        //runs function to get multiple choice options
         createMultipleChoice(result, multipleChoice);
 
+        //writes question and multiple choices to page 
         $("#question-box").removeClass("hidden").addClass("unhidden");
         $("#question-box").html('<h2>' + firstNumber + sign + secondNumber + ' = ?</h2><div class="button-row"><button type="button" class="btn btn-info number" id="0">' + multipleChoice[0] + '</button><button type="button" class="btn btn-info number" id="1">' + multipleChoice[1] + '</button> <button type="button" class="btn btn-info number" id="2">' + multipleChoice[2] + '</button><button type="button" class="btn btn-info number" id="3">' + multipleChoice[3] + '</button></div><div class="button-row"><div class=error-alert></div></div>')
         $("#answer-box").removeClass("hidden").addClass("unhidden");
         $("#next-box").removeClass("unhidden").addClass("hidden");
 
-
+        //determines user's guess 
         $(".btn-info").click(function() {
             $(".btn-info").removeClass("active");
             $(".btn-info").removeClass("guess");
@@ -84,63 +88,54 @@ $(document).ready(function() {
         //actions when answer button is clicked    
         $(".answer").click(function() {
 
+
             //checks if guess has been made 
-            if ($('#0').hasClass("guess") || $('#1').hasClass("guess") || $('#2').hasClass("guess") || $('#3').hasClass("guess"))
-            {
+            if ($('#0').hasClass("guess") || $('#1').hasClass("guess") || $('#2').hasClass("guess") || $('#3').hasClass("guess")) {
+
+                //disables buttons and changes page
+                $(".answer").off("click");
+                $(".btn-info").off("click")
                 $(".btn-info").removeClass("active").removeClass("correct").removeClass("incorrect");
                 $(".error-alert").empty();
                 $("#answer-box").removeClass("unhidden").addClass("hidden");
-                if (counter==10)
-                {
-                    $("#restart-box").removeClass("hidden").addClass("unhidden"); 
+
+                //checks if counter has reached 10. If so, add restart button rather than next button
+                if (counter == 10) {
+                    $("#restart-box").removeClass("hidden").addClass("unhidden");
                 }
-                else
-                {
-                  $("#next-box").removeClass("hidden").addClass("unhidden"); 
+                else {
+                    $("#next-box").removeClass("hidden").addClass("unhidden");
                 }
-                    
-                
 
-
-
+                //loops through options and changes their colour based on whether they are correct or not
                 for (i = 0; i < 4; i++) {
+
                     if (parseInt($('#' + i).text()) == result) {
                         $('#' + i).addClass("correct");
-
                     }
                     else {
                         $('#' + i).addClass("incorrect");
                     }
+
                 }
 
                 //tells user if answer is correct or not
-                if (parseInt($(".guess").text()) == result) {
+                guess = parseInt($(".guess").text());
+                if (guess == result) {
                     $("h2").text('That\'s right! ' + firstNumber + sign + secondNumber + ' = ' + result);
+                    //calculates score
                     score++;
                 }
-
                 else {
                     $("h2").text('That\'s wrong. ' + firstNumber + sign + secondNumber + ' = ' + result);
                 }
-                
-                if (counter==10)
-                {
-                  $("h2").append('<br /><span>You scored ' + score + ' out of 10');  
+
+                //gives score if counter has reached 10
+                if (counter == 10) {
+                    $("h2").append('<br /><span>You scored ' + score + ' out of 10');
                 }
 
-
                 //fix to stop buttons changing colour after answer has been given
-                $(".btn-info").click(function() {
-                    if (parseInt($(this).text()) == result) {
-                        $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "#1e7e34", "border-color": "#1e7e34" });
-                    }
-                    else {
-                        $(".btn-info:not(:disabled):not(.disabled).active").css({ "background-color": "red", "border-color": "red" });
-                    }
-
-
-                });
-
                 $(".btn-info").mouseenter(function() {
 
                     if (parseInt($(this).text()) == result) {
@@ -151,20 +146,17 @@ $(document).ready(function() {
                     }
 
                 });
+            }
 
-
-
-             }
-             
-               else { $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose an answer.</p>');
-  }
+            //if no answer is selected
+            else {
+                $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose an answer.</p>');
+                $(this).on("click");
+            }
 
         });
 
     }
-
-
-
 
     function createMultipleChoice(result, multipleChoice) {
         //determines range for multiple choice options, preventing negative numbers
@@ -185,15 +177,16 @@ $(document).ready(function() {
         while (multipleChoice.length < 4) {
             var nearNumber = createRandom(rangeBottom, rangeTop);
             for (i = 0; i < multipleChoice.length; i++) {
+
                 if (nearNumber == multipleChoice[i]) {
                     duplicate = true;
                 }
+
             }
 
             if (duplicate == false) {
                 multipleChoice.push(nearNumber);
             }
-
             else {
                 duplicate = false;
             }
@@ -201,10 +194,6 @@ $(document).ready(function() {
             shuffleArray(multipleChoice);
 
         }
-
-
-
-
 
     }
 
