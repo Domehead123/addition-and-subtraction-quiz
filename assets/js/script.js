@@ -3,7 +3,8 @@ $(document).ready(function() {
     var counter = 0;
     var score = 0;
     var upperLimit = "";
-    var difficulty = "";
+ 
+    
 
     //determines range of numbers
     $(".btn-info").click(function() {
@@ -13,24 +14,12 @@ $(document).ready(function() {
         upperLimit = parseInt(upperLimit.substring(2, upperLimit.length));
     });
 
-    //determines level of difficulty
-    $(".btn-secondary").click(function() {
-        $(".btn-secondary").removeClass("active");
-        $(this).addClass("active");
-        difficulty = $(this).text();
-    });
-
-    //error messages if nothing selected - otherwise run quiz   
+    //error message if nothing selected - otherwise run quiz   
     $(".start").click(function() {
-        if (upperLimit === "" && difficulty === "") {
-            $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a range of numbers and a level of difficulty.</p>');
-        }
-        else if (upperLimit === "" && difficulty.length > 0) {
+        if (upperLimit === "" ) {
             $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a range of numbers.</p>');
         }
-        else if (upperLimit != isNaN() && difficulty === "") {
-            $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose a level of difficulty.</p>');
-        }
+       
         else {
             $("#start-box").addClass("hidden");
             $("#selection-box").addClass("hidden");
@@ -56,7 +45,6 @@ $(document).ready(function() {
         var firstNumber = createRandom(1, upperLimit);
         var secondNumber = createRandom(1, upperLimit);
         var sign;
-        var guess;
         var plusOrMinus = createRandom(0, 1);
         if (plusOrMinus == 0) {
             sign = " + ";
@@ -166,9 +154,6 @@ $(document).ready(function() {
 
 
 
-
-
-
              }
              
                else { $(".error-alert").html('<p><span class="smiley">&#9787;</span> Please choose an answer.</p>');
@@ -228,7 +213,7 @@ $(document).ready(function() {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    //shuffkes array so correct answer mot always in same position
+    //shuffles array so correct answer mot always in same position
     function shuffleArray(array) {
         var currentIndex = array.length,
             temporaryValue, randomIndex;
