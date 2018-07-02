@@ -20,18 +20,11 @@ section {
     margin: 0px 40px;
 }
 
-#selection-box, #question-box {
+.selection-box, .question-box {
     font-size: 1.5em;
 }
 
 /*buttons*/
-
-button {
-    width: 65px;
-    height: 60px;
-    margin: 10px 10px;
-    border-radius: 10px;
-}
 
 .btn {
     font-size: 1.1rem;
@@ -62,17 +55,13 @@ button {
 }
 
 .btn-secondary:not(:disabled):not(.disabled).active {
-    background-color: black;
+    background-color: #000;
     border-color: #541396;
 }
 
-.btn-info:not(:disabled):not(.disabled).active:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255,255,255,.5);
-}
-
 .incorrect {
-    background-color: red;
-    border-color:red;
+    background-color: #ff0000;
+    border-color: #ff0000;
 }
 
 .correct {
@@ -106,37 +95,36 @@ button {
     
     body {
     font-size: 1em;
-
-}
+    }
 
     button {
         width: 150px;
         margin: 15px 5px;
-}
+    }
 
-.btn {
-    font-size: 2rem;
-}
-
-h1 {
-    font-size: 5em;
-    margin: 40px 40px 20px 40px;
-}
-
-
-h2{
-    font-size: 4rem;
-}
-
-.number {
-    width: 175px;
-    height: 175px;
-    font-size: 4rem;
-}
-
-.btn-success {
-    margin-top: 50px;
-}
+    .btn {
+        font-size: 2rem;
+    }
+    
+    h1 {
+        font-size: 5em;
+        margin: 40px 40px 20px 40px;
+    }
+    
+    
+    h2{
+        font-size: 4rem;
+    }
+    
+    .number {
+        width: 175px;
+        height: 175px;
+        font-size: 4rem;
+    }
+    
+    .btn-success {
+        margin-top: 50px;
+    }
 
 }
 

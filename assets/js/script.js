@@ -20,8 +20,8 @@ $(document).ready(function() {
         }
 
         else {
-            $("#start-box").addClass("hidden");
-            $("#selection-box").addClass("hidden");
+            $(".start-box").addClass("hidden");
+            $(".selection-box").addClass("hidden");
             runQuiz();
         }
 
@@ -70,10 +70,10 @@ $(document).ready(function() {
         createMultipleChoice(result, multipleChoice);
 
         //writes question and multiple choices to page 
-        $("#question-box").removeClass("hidden").addClass("unhidden");
-        $("#question-box").html('<h2>' + firstNumber + sign + secondNumber + ' = ?</h2><div class="button-row"><button type="button" class="btn btn-info number" id="0">' + multipleChoice[0] + '</button><button type="button" class="btn btn-info number" id="1">' + multipleChoice[1] + '</button> <button type="button" class="btn btn-info number" id="2">' + multipleChoice[2] + '</button><button type="button" class="btn btn-info number" id="3">' + multipleChoice[3] + '</button></div><div class="button-row"><div class=error-alert></div></div>')
-        $("#answer-box").removeClass("hidden").addClass("unhidden");
-        $("#next-box").removeClass("unhidden").addClass("hidden");
+        $(".question-box").removeClass("hidden").addClass("unhidden");
+        $(".question-box").html('<h2>' + firstNumber + sign + secondNumber + ' = ?</h2><div class="button-row"><button type="button" class="btn btn-info number" id="0">' + multipleChoice[0] + '</button><button type="button" class="btn btn-info number" id="1">' + multipleChoice[1] + '</button> <button type="button" class="btn btn-info number" id="2">' + multipleChoice[2] + '</button><button type="button" class="btn btn-info number" id="3">' + multipleChoice[3] + '</button></div><div class="button-row"><div class=error-alert></div></div>')
+        $(".answer-box").removeClass("hidden").addClass("unhidden");
+        $(".next-box").removeClass("unhidden").addClass("hidden");
 
         //determines user's guess 
         $(".btn-info").click(function() {
@@ -97,14 +97,14 @@ $(document).ready(function() {
                 $(".btn-info").off("click")
                 $(".btn-info").removeClass("active").removeClass("correct").removeClass("incorrect");
                 $(".error-alert").empty();
-                $("#answer-box").removeClass("unhidden").addClass("hidden");
+                $(".answer-box").removeClass("unhidden").addClass("hidden");
 
                 //checks if counter has reached 10. If so, add restart button rather than next button
                 if (counter == 10) {
-                    $("#restart-box").removeClass("hidden").addClass("unhidden");
+                    $(".restart-box").removeClass("hidden").addClass("unhidden");
                 }
                 else {
-                    $("#next-box").removeClass("hidden").addClass("unhidden");
+                    $(".next-box").removeClass("hidden").addClass("unhidden");
                 }
 
                 //loops through options and changes their colour based on whether they are correct or not
