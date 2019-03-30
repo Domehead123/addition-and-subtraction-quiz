@@ -218,5 +218,9 @@ $(document).ready(function() {
         }
         return array;
     }
-
+    
+    function addTwoNumbers(d,f){
+    return d + f;
+}
+   
 });
